@@ -183,12 +183,13 @@ function mountTemplateList() {
 
     // Save the width of divContent when resized
     const resizeObserver = new ResizeObserver(() => {
-        const width = (divContent.offsetWidth - padding * 2) + "px";
-        localStorage.setItem('support-template-modal-width', width);
+        if (divContent.offsetWidth > 0) {
+            const width = (divContent.offsetWidth - padding * 2) + "px";
+            localStorage.setItem('support-template-modal-width', width);
+        }
     });
     resizeObserver.observe(divContent);
     divContent.style.width = localStorage.getItem('support-template-modal-width') || "250px";
-
 
     // Create and add the filter input element
     const inputFilter = document.createElement("input");
