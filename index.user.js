@@ -4,7 +4,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @author       Svotin
-// @match        https://vk.com/gim*
+// @match        https://vk.com/*
 // @icon         https://www.google.com/s2/favicons?domain=vk.com
 // @grant        window.onurlchange
 // ==/UserScript==
