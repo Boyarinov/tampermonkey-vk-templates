@@ -64,7 +64,7 @@ function templatesToHtml(parent, filter = "") {
             const templateContainer = document.createElement("div");
             templateContainer.style.marginBottom = "15px";
             templateContainer.style.padding = "10px";
-            templateContainer.style.border = "1px solid #444";
+            templateContainer.style.border = "1px solid var(--vkui--color_separator_primary)";
             templateContainer.style.borderRadius = "4px";
             templateContainer.style.fontFamily = "Georgia, serif";
             templateContainer.style.cursor = "pointer";
@@ -72,11 +72,12 @@ function templatesToHtml(parent, filter = "") {
             const templateName = document.createElement("div");
             templateName.innerHTML = `<b>${template.name}</b>`;
             templateName.style.marginBottom = "5px";
+            templateName.style.color = "var(--vkui--color_text_primary--active)";
 
             const templateContent = document.createElement("div");
             templateContent.innerText = template.content.replaceAll("\n", "");
             templateContent.style.fontSize = "12px";
-            templateContent.style.color = "#bbb";
+            templateContent.style.color = "var(--vkui--color_text_secondary)";
             templateContent.style.whiteSpace = "nowrap";
             templateContent.style.overflow = "hidden";
             templateContent.style.textOverflow = "ellipsis";
@@ -112,6 +113,7 @@ function mountTemplateList() {
     divModal.style.flexDirection = "column";
     divModal.style.color = "white";
     divModal.style.fontFamily = "Georgia, serif";
+    divModal.style.outlineColor = "var(--vkui--size_border--regular)"
     divModal.style.zIndex = "1000"; // Ensure the panel is above other content
 
     // Create a draggable header
@@ -165,7 +167,7 @@ function mountTemplateList() {
     const padding = 25;
     const divContent = document.createElement("div");
     divContent.style.padding = padding + "px";
-    divContent.style.background = "#2c3034";
+    divContent.style.background = "var(--vkui--color_background_content)";
     divContent.style.borderBottomLeftRadius = "16px";
     divContent.style.borderBottomRightRadius = "16px";
     divContent.style.minWidth = "120px";
@@ -198,9 +200,10 @@ function mountTemplateList() {
     inputFilter.style.width = "100%";
     inputFilter.style.marginBottom = "10px";
     inputFilter.style.padding = "5px";
-    inputFilter.style.border = "1px solid #444";
+    inputFilter.style.border = "none";
     inputFilter.style.borderRadius = "4px";
     inputFilter.style.fontFamily = "Georgia, serif";
+    inputFilter.style.backgroundColor = "var(--vkui--color_search_field_background)";
 
     // Create a container for the template list
     const listContainer = document.createElement("div");
