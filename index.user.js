@@ -2,7 +2,7 @@
 // @name         Support Templates
 // @description  Templates for VK support
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @author       Svotin
 // @match        https://vk.com/*
 // @icon         https://www.google.com/s2/favicons?domain=vk.com
@@ -35,7 +35,8 @@ function setText(text) {
     if (chatDiv) {
         chatDiv.dispatchEvent(new Event('focus'));
         chatDiv.dispatchEvent(new Event('keydown'));
-        chatDiv.innerHTML += text;
+
+        chatDiv.innerHTML += text.replaceAll("\n", "</br>");
     }
 }
 
