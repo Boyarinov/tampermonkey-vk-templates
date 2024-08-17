@@ -2,7 +2,7 @@
 // @name         Support Templates
 // @description  Templates for VK support
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @author       Svotin
 // @match        https://vk.com/*
 // @icon         https://www.google.com/s2/favicons?domain=vk.com
@@ -221,6 +221,13 @@ function mountTemplateList() {
         templatesToHtml(listContainer, filterValue);
     });
 
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'F2') {
+            inputFilter.focus();
+            e.preventDefault(); // Prevent default action for F2 key
+        }
+    });
+
     // Initial population of the template list
     templatesToHtml(listContainer);
 
@@ -236,7 +243,18 @@ window.addEventListener('load', start);
 // Add urlchange event listener to handle URL changes
 if (window.onurlchange === null) {
     window.addEventListener('urlchange', () => {
-        templates = null; // Reset templates to force reloading them
-        start(); // Re-run start to reload templates and UI
+        const currentUrl = window.location.href;
+        const existingModal = document.getElementById('support-template-modal');
+
+        if (currentUrl.includes("&z=photo") || currentUrl.includes("&z=video")) {
+            // Remove the modal if the URL contains &z=photo
+            if (existingModal) {
+                existingModal.remove();
+            }
+        } else {
+            // If &z=photo is not in the URL, ensure the panel is loaded
+            templates = null; // Reset templates to force reloading them
+            start(); // Re-run start to reload templates and UI
+        }
     });
 }
