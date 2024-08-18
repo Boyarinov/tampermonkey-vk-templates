@@ -30,13 +30,38 @@ function start() {
     mountTemplateList();
 }
 
+function setTextFocus(div) {
+    const chatDiv = div || document.querySelector("div.im_editable.im-chat-input--text._im_text");
+
+    if (chatDiv) {
+        chatDiv.focus();
+
+        // Create a new range object
+        const range = document.createRange();
+        // Create a selection object
+        const selection = window.getSelection();
+
+        // Set the range to the end of the content
+        range.selectNodeContents(chatDiv);
+        range.collapse(false); // Collapse the range to the end
+
+        // Clear any current selections
+        selection.removeAllRanges();
+        // Add the new range
+        selection.addRange(range);
+
+        // Scroll the div to the bottom
+        chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+}
+
 function setText(text) {
     const chatDiv = document.querySelector("div.im_editable.im-chat-input--text._im_text");
     if (chatDiv) {
-        chatDiv.dispatchEvent(new Event('focus'));
         chatDiv.dispatchEvent(new Event('keydown'));
 
         chatDiv.innerHTML += text.replaceAll("\n", "</br>");
+        setTextFocus(chatDiv)
     }
 }
 
@@ -224,8 +249,12 @@ function mountTemplateList() {
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'F2') {
-            inputFilter.focus();
-            e.preventDefault(); // Prevent default action for F2 key
+            if (document.activeElement === inputFilter) {
+                setTextFocus();
+            } else {
+                inputFilter.focus();
+                e.preventDefault(); // Prevent default action for F2 key
+            }
         }
     });
 
